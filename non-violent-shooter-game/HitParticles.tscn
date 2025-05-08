@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cirop2ve33w4c"]
+
+[ext_resource type="Texture2D" uid="uid://c1mclmolv5sff" path="res://heart.png" id="1_voeqs"]
+
+[node name="HitParticles" type="CPUParticles2D"]
+emitting = false
+amount = 5
+texture = ExtResource("1_voeqs")
+direction = Vector2(270, 270)
+spread = 60.0
+gravity = Vector2(0, -500)
+scale_amount_min = 0.1
+scale_amount_max = 0.1

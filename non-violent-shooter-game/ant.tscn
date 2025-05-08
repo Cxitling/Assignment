@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6b6p23xtj235"]
+
+[ext_resource type="Texture2D" uid="uid://b1yek385giaca" path="res://assets/Terrain/ant.png" id="1_oav7h"]
+
+[sub_resource type="GDScript" id="GDScript_oav7h"]
+script/source = "extends CharacterBody2D
+
+const SPEED = 300
+const JUMP_VELOCITY = -400
+
+var gravity = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y += gravity * delta
+		
+	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+		
+	var direction = Input.get_axis(\"left\", \"right\")
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	move_and_slide()
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tacl"]
+size = Vector2(113, 78)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = SubResource("GDScript_oav7h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Ant" type="Sprite2D" parent="Sprite2D"]
+texture_filter = 1
+position = Vector2(74, 441)
+scale = Vector2(0.100707, 0.100707)
+texture = ExtResource("1_oav7h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(73.5, 440)
+shape = SubResource("RectangleShape2D_5tacl")
